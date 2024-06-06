@@ -25,6 +25,8 @@ import ch.emf.Thymio_Java_Connnect.models.Thymio;
  * Thymio sender application for Thymio Java Connect. This application is used
  * to send messages to the Thymio on a thread.
  *
+ * @author Tom Yerly
+ * @version 1.0
  */
 public class ServiceThymioSender extends Thread {
 

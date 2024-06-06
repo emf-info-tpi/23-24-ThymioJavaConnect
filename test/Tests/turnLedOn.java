@@ -28,7 +28,7 @@ public class turnLedOn {
     @BeforeClass
     public static void setUpClass() {
         try {
-            thymio.connect("Thymio EMF2");
+            thymio.connect("Thymio EMF1");
         } catch (Exception ex) {
             Logger.getLogger(moveThymio.class.getName()).log(Level.SEVERE, null, ex);
         }

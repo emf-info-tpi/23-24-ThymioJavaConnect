@@ -29,7 +29,8 @@ public class moveThymio {
     @BeforeClass
     public static void setUpClass() {
         try {
-            thymio.connect("Thymio EMF2");
+            thymio.connect("Thymio EMF1");
+            Thread.sleep(5000);
         } catch (Exception ex) {
             Logger.getLogger(moveThymio.class.getName()).log(Level.SEVERE, null, ex);
         }

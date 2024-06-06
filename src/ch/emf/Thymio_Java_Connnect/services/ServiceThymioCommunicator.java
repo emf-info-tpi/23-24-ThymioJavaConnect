@@ -22,6 +22,8 @@ import mobsya.fb.NodeStatus;
  * Thymio service for Thymio Java Connect. This service is used to receive
  * messages from the Thymio.
  *
+ * @author Tom Yerly
+ * @version 1.0
  */
 public class ServiceThymioCommunicator extends WebSocketClient {
 
@@ -51,7 +53,7 @@ public class ServiceThymioCommunicator extends WebSocketClient {
         super(new URI(URL));
         this.thymio = thymio;
         this.name = name;
-        
+
     }
 
     /**
@@ -70,6 +72,8 @@ public class ServiceThymioCommunicator extends WebSocketClient {
 
     /**
      * Event when the connection is opened.
+     *
+     * @param handshakedata the server handshake
      */
     @Override
     public void onOpen(ServerHandshake handshakedata) {
@@ -88,6 +92,8 @@ public class ServiceThymioCommunicator extends WebSocketClient {
 
     /**
      * Event when a message is received.
+     *
+     * @param bytes the bytes of the message
      */
     @Override
     public void onMessage(ByteBuffer bytes) {
@@ -121,12 +127,12 @@ public class ServiceThymioCommunicator extends WebSocketClient {
                                 System.out.println("Node type: " + node.type());
                                 System.out.println("Node NodeId: " + node.nodeId());
                                 System.out.println("===============");
-                                
+
                                 if (NodeStatus.name(node.status()).equals("ready")) {
                                     // Tells that the Thymio is ready
                                     ServiceThymioOrders.isReady = true;
                                 }
-                                
+
                                 synchronized (thymio) {
                                     thymio.setThymioNode(node);
                                     thymio.notify();
@@ -146,6 +152,7 @@ public class ServiceThymioCommunicator extends WebSocketClient {
                 System.out.println("Ping");
                 break;
             case AnyMessage.Error:
+
                 mobsya.fb.Error error = (mobsya.fb.Error) msg.message(new mobsya.fb.Error());
                 String errorMsg = ErrorType.names[error.error()];
                 break;
@@ -162,25 +169,33 @@ public class ServiceThymioCommunicator extends WebSocketClient {
                 System.out.println("Unknown message type " + msg.messageType());
                 break;
         }
-        
+
     }
 
     /**
      * Event when the connection is closed.
+     *
+     * @param code the code number of the disconnection
+     * @param reason the reason of the disconnection
+     * @param remote tells if the connexion was remote
      */
     @Override
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("Closed connection\nCode: " + code + "\nReason: " + reason + "\nRemote: " + remote);
-        
+        ServiceThymioOrders.isConnected = false;
+        ServiceThymioOrders.isReady = false;
     }
 
     /**
      * Event when an error occurs.
+     *
+     * @param ex the exception
      */
     @Override
     public void onError(Exception ex) {
+        ServiceThymioOrders.isConnected = false;
+        ServiceThymioOrders.isReady = false;
         System.out.println("Error " + ex.getMessage());
-        ex.printStackTrace();
     }
-    
+
 }

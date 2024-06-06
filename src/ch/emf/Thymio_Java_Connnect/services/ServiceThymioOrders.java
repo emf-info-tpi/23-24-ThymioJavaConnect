@@ -6,14 +6,13 @@ package ch.emf.Thymio_Java_Connnect.services;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ch.emf.Thymio_Java_Connnect.services.ServiceThymioSender;
 
 /**
  * This Class provides methods to control a Thymio robot, including connecting
  * to it, disconnecting from it, moving it, playing sound, and turning on LED
  * lights.
  *
- * @author YerlyT04
+ * @author Tom Yerly
  * @version 1.0
  */
 public class ServiceThymioOrders {
@@ -79,9 +78,9 @@ public class ServiceThymioOrders {
      */
     public boolean moveThymio(int motorLeftSpeed, int motorRightSpeed) {
         boolean ok = false;
-        if ((motorLeftSpeed <= 500 && motorRightSpeed <= 500) && (motorLeftSpeed >= -500 && motorRightSpeed >= -500)) {
-            ok = thymioSender.sendProgram("motor.left.target =" + motorLeftSpeed + "\nmotor.right.target =" + motorRightSpeed);
-        }
+            if ((motorLeftSpeed <= 500 && motorRightSpeed <= 500) && (motorLeftSpeed >= -500 && motorRightSpeed >= -500)) {
+                ok = thymioSender.sendProgram("motor.left.target =" + motorLeftSpeed + "\nmotor.right.target =" + motorRightSpeed);
+            }
         return ok;
     }
 
@@ -93,9 +92,9 @@ public class ServiceThymioOrders {
      */
     public boolean playSound(int frequence) {
         boolean ok = false;
-        if (frequence >= 16 && frequence <= 20000) {
-            ok = thymioSender.sendProgram("call sound.freq(" + frequence + ", 50)");
-        }
+            if (frequence >= 16 && frequence <= 20000) {
+                ok = thymioSender.sendProgram("call sound.freq(" + frequence + ", 50)");
+            }
         return ok;
 
     }
@@ -112,7 +111,7 @@ public class ServiceThymioOrders {
      */
     public boolean turnLedOn(int red, int green, int blue, String led) {
         boolean ok = false;
-        if (led != null) {
+             if (led != null) {
             if (led.equals("top") || led.equals("bottom.left") || led.equals("bottom.right")) {
                 if (red >= 0 && red <= 32 && green >= 0 && green <= 32 && blue >= 0 && blue <= 32 && red + green + blue > 0) {
                     ok = thymioSender.sendProgram("call leds." + led + "(" + red + "," + green + "," + blue + ")");
@@ -123,7 +122,7 @@ public class ServiceThymioOrders {
                 thymioSender.sendProgram("call leds.bottom.right (0,0,0)");
                 ok = false;
             }
-        }
+        }       
         return ok;
     }
 
