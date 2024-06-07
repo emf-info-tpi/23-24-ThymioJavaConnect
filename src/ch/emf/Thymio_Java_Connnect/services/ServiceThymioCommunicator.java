@@ -15,6 +15,7 @@ import mobsya.fb.Message;
 import mobsya.fb.NodesChanged;
 import mobsya.fb.RequestCompleted;
 import ch.emf.Thymio_Java_Connnect.models.Thymio;
+import java.io.EOFException;
 import mobsya.fb.Node;
 import mobsya.fb.NodeStatus;
 
@@ -99,7 +100,6 @@ public class ServiceThymioCommunicator extends WebSocketClient {
     public void onMessage(ByteBuffer bytes) {
         Message msg = Message.getRootAsMessage(bytes);
         System.out.println("> Message type: " + AnyMessage.name(msg.messageType()));
-
         //Processes the message and print information of the message in the console
         switch (msg.messageType()) {
             case AnyMessage.ConnectionHandshake:
@@ -132,7 +132,6 @@ public class ServiceThymioCommunicator extends WebSocketClient {
                                     // Tells that the Thymio is ready
                                     ServiceThymioOrders.isReady = true;
                                 }
-
                                 synchronized (thymio) {
                                     thymio.setThymioNode(node);
                                     thymio.notify();
@@ -141,6 +140,7 @@ public class ServiceThymioCommunicator extends WebSocketClient {
                         }
                     } catch (IllegalArgumentException ex) {
                         ServiceThymioOrders.isConnected = true;
+                        ServiceThymioOrders.isReady = false;
                         System.out.println("IllegalArguments");
                     }
                 }
@@ -152,10 +152,13 @@ public class ServiceThymioCommunicator extends WebSocketClient {
                 System.out.println("Ping");
                 break;
             case AnyMessage.Error:
-
-                mobsya.fb.Error error = (mobsya.fb.Error) msg.message(new mobsya.fb.Error());
-                String errorMsg = ErrorType.names[error.error()];
-                break;
+                synchronized (thymio) {
+                    mobsya.fb.Error error = (mobsya.fb.Error) msg.message(new mobsya.fb.Error());
+                    String errorMsg = ErrorType.names[error.error()];
+                    ServiceThymioOrders.isConnected = false;
+                    ServiceThymioOrders.isReady = false;
+                    break;
+                }
             case AnyMessage.RequestListOfNodes:
                 System.out.println("RequestListOfNodes");
                 break;
@@ -181,9 +184,11 @@ public class ServiceThymioCommunicator extends WebSocketClient {
      */
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        System.out.println("Closed connection\nCode: " + code + "\nReason: " + reason + "\nRemote: " + remote);
-        ServiceThymioOrders.isConnected = false;
-        ServiceThymioOrders.isReady = false;
+        synchronized (thymio) {
+            System.out.println("Closed connection\nCode: " + code + "\nReason: " + reason + "\nRemote: " + remote);
+            ServiceThymioOrders.isConnected = false;
+            ServiceThymioOrders.isReady = false;
+        }
     }
 
     /**
@@ -193,9 +198,11 @@ public class ServiceThymioCommunicator extends WebSocketClient {
      */
     @Override
     public void onError(Exception ex) {
-        ServiceThymioOrders.isConnected = false;
-        ServiceThymioOrders.isReady = false;
-        System.out.println("Error " + ex.getMessage());
+        synchronized (thymio) {
+            System.out.println("Error " + ex.getMessage());
+            ServiceThymioOrders.isConnected = false;
+            ServiceThymioOrders.isReady = false;
+        }
     }
 
 }

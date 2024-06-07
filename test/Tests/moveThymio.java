@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  *
  * @author YerlyT04
  */
-public class moveThymio {
+public class moveThymio{
 
     private static ServiceThymioOrders thymio = new ServiceThymioOrders();
 
@@ -31,7 +31,7 @@ public class moveThymio {
         try {
             thymio.connect("Thymio EMF1");
             Thread.sleep(5000);
-        } catch (Exception ex) {
+        } catch (InterruptedException ex) {
             Logger.getLogger(moveThymio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

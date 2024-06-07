@@ -29,7 +29,8 @@ public class turnLedOn {
     public static void setUpClass() {
         try {
             thymio.connect("Thymio EMF1");
-        } catch (Exception ex) {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
             Logger.getLogger(moveThymio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

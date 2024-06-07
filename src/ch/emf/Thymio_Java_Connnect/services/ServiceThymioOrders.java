@@ -57,7 +57,10 @@ public class ServiceThymioOrders {
         thymioSender.setRunning(false);
         isConnected = false;
         try {
-            thymioSender.join();
+            thymioSender.join(5000);
+            if (thymioSender.isAlive()) {
+                throw new InterruptedException("Disconnection failed");
+            }
         } catch (InterruptedException ex) {
             Logger.getLogger(ServiceThymioOrders.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;
@@ -78,9 +81,11 @@ public class ServiceThymioOrders {
      */
     public boolean moveThymio(int motorLeftSpeed, int motorRightSpeed) {
         boolean ok = false;
+        if (isConnected != false && isReady != false) {
             if ((motorLeftSpeed <= 500 && motorRightSpeed <= 500) && (motorLeftSpeed >= -500 && motorRightSpeed >= -500)) {
                 ok = thymioSender.sendProgram("motor.left.target =" + motorLeftSpeed + "\nmotor.right.target =" + motorRightSpeed);
             }
+        }
         return ok;
     }
 
@@ -92,9 +97,11 @@ public class ServiceThymioOrders {
      */
     public boolean playSound(int frequence) {
         boolean ok = false;
+        if (isConnected != false && isReady != false) {
             if (frequence >= 16 && frequence <= 20000) {
                 ok = thymioSender.sendProgram("call sound.freq(" + frequence + ", 50)");
             }
+        }
         return ok;
 
     }
@@ -111,18 +118,20 @@ public class ServiceThymioOrders {
      */
     public boolean turnLedOn(int red, int green, int blue, String led) {
         boolean ok = false;
-             if (led != null) {
-            if (led.equals("top") || led.equals("bottom.left") || led.equals("bottom.right")) {
-                if (red >= 0 && red <= 32 && green >= 0 && green <= 32 && blue >= 0 && blue <= 32 && red + green + blue > 0) {
-                    ok = thymioSender.sendProgram("call leds." + led + "(" + red + "," + green + "," + blue + ")");
+        if (isConnected != false && isReady != false) {
+            if (led != null) {
+                if (led.equals("top") || led.equals("bottom.left") || led.equals("bottom.right")) {
+                    if (red >= 0 && red <= 32 && green >= 0 && green <= 32 && blue >= 0 && blue <= 32 && red + green + blue > 0) {
+                        ok = thymioSender.sendProgram("call leds." + led + "(" + red + "," + green + "," + blue + ")");
+                    }
+                } else {
+                    thymioSender.sendProgram("call leds.top (0,0,0)");
+                    thymioSender.sendProgram("call leds.bottom.left (0,0,0)");
+                    thymioSender.sendProgram("call leds.bottom.right (0,0,0)");
+                    ok = false;
                 }
-            } else {
-                thymioSender.sendProgram("call leds.top (0,0,0)");
-                thymioSender.sendProgram("call leds.bottom.left (0,0,0)");
-                thymioSender.sendProgram("call leds.bottom.right (0,0,0)");
-                ok = false;
             }
-        }       
+        }
         return ok;
     }
 
