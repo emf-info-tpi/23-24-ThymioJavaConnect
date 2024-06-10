@@ -4,7 +4,7 @@
 1. [ThymioJavaConnect QESAKO?](#thymiojavaconnect-qesako)
 2. [Préparation et utilisation de la librairie](#préparation-et-utilisation-de-la-librairie)
     1. [Installer Thymio Suite](#installer-thymio-suite)
-    2. [Vérifier que l'on puisse se connecter au Thymio](#Vérifier-que-l'on-puisse-se-connecter-au-Thymio)
+    2. [Vérifier que l'on puisse se connecter au Thymio]{#vérifier-que-lon-puisse-se-connecter-au-thymio}
     3. [Vérifier que tout fonctionne](#vérifier-que-tout-fonctionne)
 3. [Diagramme de classes](#diagramme-de-classes)
 4. [Exemples d'utilisation](#exemples-dutilisation)
@@ -29,7 +29,7 @@ Au niveau logicel, l'application **Thymio Suite** doit être installée et déma
 
 ## Préparation et utilisation de la librairie
 ### Installer Thymio Suite
-Pour commencer à utiliser la librairie **ThymioJavaConnect**, il est nécéssaire d'installer l'application **Thymio Suite. Cette application est un logiciel freeware qui peut être trouvée et téléchagé sous [Thymio Suite](https://www.thymio.org). Après avoir téléchargé ce logicel, il ne reste plus qu'a suivre que
+Pour commencer à utiliser la librairie **ThymioJavaConnect**, il est nécéssaire d'installer l'application **Thymio Suite. Cette application est un logiciel freeware qui peut être trouvée et téléchagé sous [Thymio Suite](https://www.thymio.org). Après avoir téléchargé ce logicel, il ne reste plus qu'a suivre l'installation et le logicel est prêt.
 ### Vérifier que l'on puisse se connecter au Thymio
 
 ### Vérifier que tout fonctionne
