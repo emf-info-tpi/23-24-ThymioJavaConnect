@@ -2,20 +2,15 @@ package ch.emf.Thymio_Java_Connnect.services;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.UUID;
-
 import com.google.flatbuffers.ByteVector;
 import com.google.flatbuffers.FlatBufferBuilder;
-
 import mobsya.fb.AnyMessage;
 import mobsya.fb.CompilationOptions;
 import mobsya.fb.CompileAndLoadCodeOnVM;
 import mobsya.fb.ConnectionHandshake;
 import mobsya.fb.LockNode;
 import mobsya.fb.Message;
-import mobsya.fb.Node;
-import mobsya.fb.NodeStatus;
 import mobsya.fb.ProgrammingLanguage;
 import mobsya.fb.SetVMExecutionState;
 import mobsya.fb.VMExecutionStateCommand;
@@ -58,6 +53,15 @@ public class ServiceThymioSender extends Thread {
     }
 
     /**
+     * Method used to start or stop the ServiceThymioSender Thread
+     *
+     * @param isRunning the isRunning to set
+     */
+    public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    /**
      * The thread run method that sends messages to the Thymio. The sequence of
      * messages is: - ConnectionHandshake - LockNode - CompileAndLoadCodeOnVM -
      * SetVMExecutionState
@@ -82,7 +86,7 @@ public class ServiceThymioSender extends Thread {
                 FlatBufferBuilder builderCompileAndLoadCodeOnVM = new FlatBufferBuilder();
                 FlatBufferBuilder builderVMExecutionState = new FlatBufferBuilder();
 
-                // Initialize variablesS
+                // Initialize variables
                 int offsetPassword = builderConnectionHandshake.createString("");
 
                 // Create a ConnectionHandshake message
@@ -138,12 +142,12 @@ public class ServiceThymioSender extends Thread {
                         int messageLockOffset = Message.endMessage(builderLockNode);
                         builderLockNode.finish(messageLockOffset);
                         client.send(builderLockNode.dataBuffer());
-                        
+
                         // clears the list of order to prevent orders from being requested before the connection is successful
                         programList.clear();
                         while (isRunning) {
                             // Tells that the connexion with the Thymio is sucessfull
-                            
+
                             if (programList.size() != 0) {
                                 int offsetCodeId = builderCompileAndLoadCodeOnVM.createString(programList.get(0));
                                 programList.remove(0);
@@ -215,15 +219,6 @@ public class ServiceThymioSender extends Thread {
             e.printStackTrace();
         }
 
-    }
-
-    /**
-     * Method used to start or stop the ServiceThymioSender Thread
-     *
-     * @param isRunning the isRunning to set
-     */
-    public void setRunning(boolean isRunning) {
-        this.isRunning = isRunning;
     }
 
 }

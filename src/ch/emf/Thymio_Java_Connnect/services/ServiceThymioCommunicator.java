@@ -3,19 +3,14 @@ package ch.emf.Thymio_Java_Connnect.services;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
-
 import mobsya.fb.AnyMessage;
 import mobsya.fb.ErrorType;
 import mobsya.fb.Message;
 import mobsya.fb.NodesChanged;
 import mobsya.fb.RequestCompleted;
 import ch.emf.Thymio_Java_Connnect.models.Thymio;
-import java.io.EOFException;
 import mobsya.fb.Node;
 import mobsya.fb.NodeStatus;
 
