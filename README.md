@@ -33,20 +33,59 @@ Pour commencer à utiliser la librairie **ThymioJavaConnect**, il est nécéssai
 ### Vérifier que l'on puisse se connecter au Thymio
 Pour vérifier que la connexion avec le **Thymio** soit possible, il faut commencer par connecter le Thymio avec l'ordinateur (possible avec le dongle ou avec un cable USB) et l'allumer (en appuyant sur le bouton au milieu). Une fois que c'est fait, il ne reste plus qu'à ouvrir l'application **Thymio Suite** et en appuyant sur l'icone d'un des languages de programmation et vérifier que le nom du **Thymio** soit écrit.
 ### Vérifier que tout fonctionne
-Pour préparer, et vérifier que tout fonctionne, il faut d'abord [vérifer si la connexion est disponible au Thymio](#vérifier-que-lon-puisse-se-connecter-au-thymio) puis ensuite ajouter la librairie **ThymioJavaConnect** dans votre projet java. Attention cette librairie nécéssite l'utilisation de 3 autres librairies qui peuvent être trouvées dans [le dossier lib de ce repos](https://github.com/emf-info-tpi/23-24-ThymioJavaConnect/tree/main/lib). Et maintenant tout est prêt !!!
+Pour préparer, et vérifier que tout fonctionne, il faut d'abord [vérifer si la connexion est disponible au Thymio](#vérifier-que-lon-puisse-se-connecter-au-thymio) puis ensuite ajouter la librairie [**ThymioJavaConnect**](https://github.com/emf-info-tpi/23-24-ThymioJavaConnect/tree/main/dist) (C'est le fichier .jar ;-)) dans votre projet java. Attention cette librairie nécéssite l'utilisation de 3 autres librairies qui peuvent être trouvées dans [le dossier lib de ce repos](https://github.com/emf-info-tpi/23-24-ThymioJavaConnect/tree/main/lib). Et maintenant tout est prêt !!!
 ## Diagramme de classes
 ## Exemples d'utilisation
+Dans les points ci-dessous, des exemples d'utilisation pour se connecter, se déconnecter, bouger le **Thymio** ou encore lui demander de jouer un son ou d'allumer une led seront montrés. Pour plus d'informations sur les méthodes veuillez vous référencer à la [javadoc](https://github.com/emf-info-tpi/23-24-ThymioJavaConnect/tree/main/dist/javadoc)
 ### Exemple 1 - Se connecter
-Pour se connecter au Thymio, il suffit d'utiliser la méthode connect de la classe ServiceThymioOrder. Voici un exemple :
+Pour se connecter au Thymio, il suffit d'utiliser la méthode connect de la classe ServiceThymioOrders. Attention la connexion peut prendre un petit peu de temps (5 secondes puis timeout) donc n'allez pas trop vite. Voici un exemple :
 ```Java
 //Création d'une instance
 ServiceThymioOrders thymio = new ServiceThymioOrders();
-//tymtym doit être remplacé par le nom de votre Thymio
-thymio.connect("tymtym");
+//Thymio EMF1 doit être remplacé par le nom de votre Thymio
+String nom = "Thymio EMF1":
+thymio.connect(name);
 ```
 ### Exemple 2 - Se déconnecter
+Maintenant que nous nous sommes connectés, il nous faut aussi pouvoir nous déconnecter. Pour pouvoir se déconnecter, il suffit d'utiliser la méthode disconnect de la classe ServiceThymioOrders. Voyez ici un exemple :
+```Java
+//thymio est l'instance du ServiceThymioOrders créé précédemment
+try{
+    thymio.disconnect();
+} catch (InterruptedException ex) {
+    System.out.println("Problème à l'interruption du Thread permettant la communication avec le Thymio");
+}
+```
 ### Exemple 3 - Bouger le Thymio
+Se connecter et se déconnecter ce n'est pas tout, il est aussi possible de faire bouger le Thymio en utilisant la méthode moveThymio de notre classe ServiceThymioOrders. Voyez l'exemple ci-dessous :
+```Java
+//thymio est l'instance du ServiceThymioOrders créé précédemment. ok vaut true si l'ordre à bien été envoyé false si l'ordre n'a pas été envoyé.
+//Ici les valeurs possibles pour la vitesse de chaque moteur se trouve entre -500 et 500 compris.
+//Thymio avance tout droit à vitesse max
+int moteurGauche = 500;
+int moteurDroite = 500;
+boolean ok = thymio.moveThymio(moteurGauche, moteurDroite);
+```
 ### Exemple 4 - Jouer un son
+Thymio nous permet aussi de jouer un son. Pour se faire, il faut utiliser la méthode playSound de la classe ServiceThymioOrders. Voici un exemple :
+```Java
+//thymio est l'instance du ServiceThymioOrders créé précédemment. ok vaut true si l'ordre à bien été envoyé false si l'ordre n'a pas été envoyé.
+//Ici les valeurs possibles pour la fréquence sont entre 16 et 20'000 compris.
+//Thymio joue un son à une fréquence de 1000
+int frequence = 1000;
+boolean ok = thymio.playSound(frequence);
+```
 ### Exemple 5 - Allumer une led
+Pour finir il est aussi possible d'allumer une des leds du Thymio. Pour les allumer il faut utiliser la méthode turnLedOn de la classe ServiceThymioOrders. Voici l'exemple :
+```Java
+//thymio est l'instance du ServiceThymioOrders créé précédemment. ok vaut true si l'ordre à bien été envoyé false si l'ordre n'a pas été envoyé.
+//Ici les valeurs possibles pour red,green et blue sont entre 0 et 32 tandis que pour led les valeurs possibles sont top pour la led du haut, bottom.left pour la led bas gauche et bottom.right pour la led bottom bas droite
+//Thymio allume la led du haut en rouge
+int red = 32;
+int green = 0;
+int blue = 0;
+String led = "top";
+boolean ok = thymio.turnLedOn(red,green,blue,led);
+```
 ## Réaliser votre projet
 A votre tour de vous amuser et de créer un projet fantastique! Faites libre cours à votre imagination
