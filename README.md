@@ -4,7 +4,7 @@
 1. [ThymioJavaConnect QESAKO?](#thymiojavaconnect-qesako)
 2. [Préparation et utilisation de la librairie](#préparation-et-utilisation-de-la-librairie)
     1. [Installer Thymio Suite](#installer-thymio-suite)
-    2. [Vérifier que l'on puisse se connecter au Thymio]{#vérifier-que-lon-puisse-se-connecter-au-thymio}
+    2. [Vérifier que l'on puisse se connecter au Thymio](#vérifier-que-lon-puisse-se-connecter-au-thymio)
     3. [Vérifier que tout fonctionne](#vérifier-que-tout-fonctionne)
 3. [Diagramme de classes](#diagramme-de-classes)
 4. [Exemples d'utilisation](#exemples-dutilisation)
