@@ -1,4 +1,5 @@
 # 23-24-ThymioJavaConnect
+Une librairie pour utiliser Thymio avec Java ;-)
 ## Table des matières
 ## ThymioJavaConnect QESAKO?
 ## Préparation et utilisation de la librairie
