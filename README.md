@@ -23,7 +23,7 @@ ThymioJavaConnect est le résultat de la réalisation d'un TPI de fin d'apprenti
 - Demander au Thymio de jouer un son
 - Allumer une led du Thymio
 
-Au niveau matériel, il faut un Thymio qui peut être connecté à un ordinateur avec un câble ou alors avec un dongle USB.
+Au niveau matériel, il faut un **Thymio** qui peut être connecté à un ordinateur avec un câble ou alors avec un dongle USB.
 Au niveau logicel, l'application **Thymio Suite** doit être installée et démarée pour pouvoir communiquer avec le **Thymio**. La libairie présente dans ce projet est aussi nécéssaire.
 ## Préparation et utilisation de la librairie
 ### Installer Thymio Suite
