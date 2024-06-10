@@ -17,14 +17,14 @@
 
 ## ThymioJavaConnect QESAKO?
 ThymioJavaConnect est le résultat de la réalisation d'un TPI de fin d'apprentissage permettant d'utiliser **Thymio** avec Java. Le but de cette librairie est de mettre en place une solution qui permet d'être utilisé lors des modules de développement lors d'apprentissages à l'**EMF**. Cette librairie est permet pour l'instant l'envoi de ordre. Voici un liste résumant toutes les actions possible avec cette librairie via l'application **Thymio Suite** :
-- Se connecter au **Thymio** 
-- Se déconnecter au **Thymio**
-- Piloter le **Thymio**
-- Demander au **Thymio** de jouer un son
-- Allumer une led du **Thymio**
+- Se connecter au Thymio
+- Se déconnecter au Thymio
+- Piloter le Thymio
+- Demander au Thymio de jouer un son
+- Allumer une led du Thymio
 
 Au niveau matériel, il faut un Thymio qui peut être connecté à un ordinateur avec un câble ou alors avec un dongle USB.
-Au niveau logicel, l'application Thymio suite doit être installée et démarée pour pouvoir communiquer avec le Thymio. La libairie présente dans ce projet est aussi nécéssaire.
+Au niveau logicel, l'application **Thymio Suite** doit être installée et démarée pour pouvoir communiquer avec le **Thymio**. La libairie présente dans ce projet est aussi nécéssaire.
 ## Préparation et utilisation de la librairie
 ### Installer Thymio Suite
 ### Vérifier que tout fonctionne
