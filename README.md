@@ -16,7 +16,10 @@
 
 
 ## ThymioJavaConnect QESAKO?
-ThymioJavaConnect est la réalisation d'un TPI de fin d'apprentissage permettant d'utiliser Thymio avec Java
+ThymioJavaConnect est le résultat de la réalisation d'un TPI de fin d'apprentissage permettant d'utiliser **Thymio** avec Java. Le but de cette librairie est de mettre en place une solution qui permet d'être utilisé lors des modules de développement lors d'apprentissages à l'**EMF**. Cette librairie est permet pour l'instant l'envoi de ordre. Voici un liste résumant toutes les actions possible avec cette librairie via l'application **Thymio Suite** :
+- Se connecter au **Thymio** 
+- Se déconnecter au **Thymio**
+- 
 ## Préparation et utilisation de la librairie
 ### Installer Thymio Suite
 ### Vérifier que tout fonctionne
